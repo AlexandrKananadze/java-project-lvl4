@@ -1,7 +1,6 @@
 package hexlet.code;
 
 import hexlet.code.controllers.RootController;
-import io.ebeaninternal.server.util.Str;
 import io.javalin.Javalin;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
@@ -26,7 +25,7 @@ public class App {
     private static void getRoutes(Javalin javalin) {
         javalin.get("/", RootController.main);
 
-        javalin.routes(() -> {
+/*        javalin.routes(() -> {
             path("urls", () -> {
                 post(UrlController.createUrl);
                 get(UrlController.showUrls);
@@ -35,7 +34,7 @@ public class App {
                     post("/checks", UrlController.checkUrl);
                 });
             });
-        });
+        });*/
     }
 
     public static Javalin getApp() {

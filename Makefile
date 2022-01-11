@@ -1,26 +1,26 @@
 build:
-         ./gradlew clean build
+	./gradlew clean build
 
 install:
-        ./gradlew clean install
+	./gradlew clean install
 
 run-dist:
-        ./build/install/app/bin/app
+	./build/install/app/bin/app
 
 lint:
-        ./gradlew checkstyleMain checkstyleTest
+	./gradlew checkstyleMain checkstyleTest
 
 start:
-        APP_ENV=development ./gradlew run
+	APP_ENV=development ./gradlew run
 
 generate-migrations:
-        ./gradlew generateMigrations
+	./gradlew generateMigrations
 
 check-updates:
-        ./gradlew dependencyUpdates
+	./gradlew dependencyUpdates
 
 reports:
-        ./gradlew test
+	./gradlew test
 
 report:
-        ./gradlew jacocoTestReport
+	./gradlew jacocoTestReport
