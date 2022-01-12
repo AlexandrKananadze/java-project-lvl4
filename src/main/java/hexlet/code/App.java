@@ -30,7 +30,7 @@ public class App {
                 post(UrlController.createUrl);
                 get(UrlController.showUrls);
                 path("/{id}", () -> {
-                    get(UrlControlelr.showUrl);
+                    get(UrlController.showUrl);
                     post("/checks", UrlController.checkUrl);
                 });
             });
