@@ -61,6 +61,24 @@ public class UrlController {
         ctx.render("urls/index.html");
     };
 
+    public static Handler showUrl = ctx -> {
+        long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
+
+        Url url = new QUrl()
+                .id.equalTo(id)
+                .findOne();
+
+        if (url == null) {
+            ctx.sessionAttribute("flash-type", "danger");
+            ctx.sessionAttribute("flash", "Некорректный ID.");
+            ctx.render("/urls");
+            return;
+        }
+
+        ctx.attribute("url", url);
+        ctx.render("urls/show.html");
+    };
+
     private static boolean checkIsUrlExists(String url) {
         return new QUrl()
                 .name.equalTo(url)

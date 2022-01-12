@@ -31,10 +31,10 @@ public class App {
             path("urls", () -> {
                 post(UrlController.createUrl);
                 get(UrlController.showUrls);
-/*                path("/{id}", () -> {
+                path("/{id}", () -> {
                     get(UrlController.showUrl);
-                    post("/checks", UrlController.checkUrl);
-                });*/
+                    /*post("/checks", UrlController.checkUrl);*/
+                });
             });
         });
     }
