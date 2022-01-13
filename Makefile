@@ -19,7 +19,7 @@ generate-migrations:
 check-updates:
 	./gradlew dependencyUpdates
 
-reports:
+test:
 	./gradlew test
 
 report:
