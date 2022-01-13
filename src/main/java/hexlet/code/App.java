@@ -33,7 +33,7 @@ public class App {
                 get(UrlController.showUrls);
                 path("/{id}", () -> {
                     get(UrlController.showUrl);
-                    /*post("/checks", UrlController.checkUrl);*/
+                    post("/checks", UrlController.startCheck);
                 });
             });
         });

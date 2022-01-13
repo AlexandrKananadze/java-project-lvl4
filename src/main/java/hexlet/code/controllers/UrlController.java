@@ -4,7 +4,14 @@ import hexlet.code.domain.Url;
 import hexlet.code.domain.UrlCheck;
 import hexlet.code.domain.query.QUrl;
 import hexlet.code.domain.query.QUrlCheck;
+import io.ebeaninternal.server.util.Str;
 import io.javalin.http.Handler;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -78,6 +85,50 @@ public class UrlController {
         ctx.attribute("url", url);
         ctx.render("urls/show.html");
     };
+
+    public static Handler startCheck = ctx -> {
+      int id = ctx.pathParamAsClass("id", Integer.class).getOrDefault(null);
+
+      Url url = new QUrl()
+              .id.equalTo(id)
+              .findOne();
+
+      try {
+          HttpResponse<String> response = Unirest
+                  .get(url.getName())
+                  .asString();
+
+          UrlCheck check = createCheck(response, url);
+          check.save();
+      } catch (UnirestException e) {
+          ctx.status(422);
+          ctx.sessionAttribute("flash-type", "danger");
+          ctx.sessionAttribute("flash", "Страница не отвечает!");
+          ctx.redirect("/urls/" + id);
+          return;
+      }
+
+      ctx.sessionAttribute("flash-type", "success");
+      ctx.sessionAttribute("flash", "Страница успешно проверена");
+      ctx.redirect("/urls/" + id);
+    };
+
+    private static UrlCheck createCheck(HttpResponse<String> resp, Url url) {
+        String body = resp.getBody();
+        Document document = Jsoup.parse(body);
+
+        Element descriptionElem = document.selectFirst("meta[name=description]");
+        String description = descriptionElem == null ? "" : descriptionElem.attr("content");
+
+        Element h1Elem = document.selectFirst("h1");
+        String h1 = h1Elem == null ? "" : h1Elem.text();
+
+        return new UrlCheck(resp.getStatus(),
+                            document.title(),
+                            h1,
+                            description,
+                            url);
+    }
 
     private static boolean checkIsUrlExists(String url) {
         return new QUrl()
