@@ -27,7 +27,7 @@ public class UrlController {
             if (!checkIsUrlExists(editedUrl)) {
                 new Url(editedUrl).save();
                 ctx.sessionAttribute("flash-type", "success");
-                ctx.sessionAttribute("flash", "Страница добавлена!");
+                ctx.sessionAttribute("flash", "Страница успешно добавлена");
                 ctx.redirect("/urls");
                 return;
             }

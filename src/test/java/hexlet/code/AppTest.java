@@ -52,7 +52,7 @@ class AppTest {
     }
 
     @AfterEach
-    void afterEach() throws IOException {
+    void afterEach() {
         transaction.rollback();
     }
 
@@ -101,7 +101,7 @@ class AppTest {
 
         assertThat(getResponse.getStatus()).isEqualTo(200);
         assertThat(url).isNotNull();
-        assertThat(body).contains("Страница добавлена!");
+        assertThat(body).contains("Страница успешно добавлена");
         assertThat(body).contains("https://newsite.com");
     }
 
