@@ -8,7 +8,7 @@
         </createTable>
         <createTable name="url_check" pkName="pk_url_check">
             <column name="id" type="bigint" primaryKey="true"/>
-            <column name="status" type="integer" notnull="true"/>
+            <column name="status_code" type="integer" notnull="true"/>
             <column name="title" type="varchar"/>
             <column name="h1" type="varchar"/>
             <column name="description" type="clob"/>

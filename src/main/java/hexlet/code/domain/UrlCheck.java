@@ -19,7 +19,7 @@ import java.time.Instant;
 public class UrlCheck extends Model {
     @Id
     private long id;
-    private int status;
+    private int statusCode;
     private String title;
     private String h1;
     @Lob
@@ -30,7 +30,7 @@ public class UrlCheck extends Model {
     private Instant createdAt;
 
     public UrlCheck(int status, String title, String h1, String description, Url url) {
-        this.status = status;
+        this.statusCode = status;
         this.title = title;
         this.h1 = h1;
         this.description = description;
