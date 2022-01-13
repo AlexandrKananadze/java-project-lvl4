@@ -4,7 +4,6 @@ import hexlet.code.domain.Url;
 import hexlet.code.domain.UrlCheck;
 import hexlet.code.domain.query.QUrl;
 import hexlet.code.domain.query.QUrlCheck;
-import io.ebeaninternal.server.util.Str;
 import io.javalin.http.Handler;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
@@ -87,30 +86,30 @@ public class UrlController {
     };
 
     public static Handler startCheck = ctx -> {
-      int id = ctx.pathParamAsClass("id", Integer.class).getOrDefault(null);
+        int id = ctx.pathParamAsClass("id", Integer.class).getOrDefault(null);
 
-      Url url = new QUrl()
+        Url url = new QUrl()
               .id.equalTo(id)
               .findOne();
 
-      try {
-          HttpResponse<String> response = Unirest
-                  .get(url.getName())
-                  .asString();
+        try {
+            HttpResponse<String> response = Unirest
+                    .get(url.getName())
+                    .asString();
 
-          UrlCheck check = createCheck(response, url);
-          check.save();
-      } catch (UnirestException e) {
-          ctx.status(422);
-          ctx.sessionAttribute("flash-type", "danger");
-          ctx.sessionAttribute("flash", "Страница не отвечает!");
-          ctx.redirect("/urls/" + id);
-          return;
-      }
+            UrlCheck check = createCheck(response, url);
+            check.save();
+        } catch (UnirestException e) {
+            ctx.status(422);
+            ctx.sessionAttribute("flash-type", "danger");
+            ctx.sessionAttribute("flash", "Страница не отвечает!");
+            ctx.redirect("/urls/" + id);
+            return;
+        }
 
-      ctx.sessionAttribute("flash-type", "success");
-      ctx.sessionAttribute("flash", "Страница успешно проверена");
-      ctx.redirect("/urls/" + id);
+        ctx.sessionAttribute("flash-type", "success");
+        ctx.sessionAttribute("flash", "Страница успешно проверена");
+        ctx.redirect("/urls/" + id);
     };
 
     private static UrlCheck createCheck(HttpResponse<String> resp, Url url) {

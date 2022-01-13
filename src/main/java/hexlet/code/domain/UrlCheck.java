@@ -2,7 +2,6 @@ package hexlet.code.domain;
 
 import io.ebean.Model;
 import io.ebean.annotation.WhenCreated;
-import io.ebeaninternal.server.util.Str;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
