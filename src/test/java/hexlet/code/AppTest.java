@@ -5,7 +5,6 @@ import io.ebean.DB;
 import io.ebean.Transaction;
 import io.javalin.Javalin;
 import okhttp3.mockwebserver.MockWebServer;
-import org.junit.After;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class AppTest {
+class AppTest {
     private static Javalin app;
     private static String baseUrl;
     private static Transaction transaction;
