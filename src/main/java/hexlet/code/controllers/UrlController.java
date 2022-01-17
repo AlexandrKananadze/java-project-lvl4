@@ -102,7 +102,7 @@ public class UrlController {
         } catch (UnirestException e) {
             ctx.status(422);
             ctx.sessionAttribute("flash-type", "danger");
-            ctx.sessionAttribute("flash", "Страница не отвечает!");
+            ctx.sessionAttribute("flash", e.getMessage());
             ctx.redirect("/urls/" + id);
             return;
         }
